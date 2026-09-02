@@ -1,0 +1,7 @@
+*
+!requirements.txt
+!vulnerable/
+!vulnerable/*.py
+!hardened/
+!hardened/*.py
+!audit.py

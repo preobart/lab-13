@@ -1,0 +1,37 @@
+name: infosec-lab13
+services:
+  vulnerable:
+    build: .
+    image: infosec-lab13-fastapi:local
+    command: ["-m", "vulnerable.main", "--database", "/tmp/vulnerable.sqlite", "--host", "0.0.0.0", "--port", "8080"]
+    ports:
+      - "127.0.0.1:18130:8080"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 64
+    mem_limit: 256m
+    networks: [lab]
+  hardened:
+    build: .
+    image: infosec-lab13-fastapi:local
+    command: ["-m", "hardened.main", "--database", "/data/hardened.sqlite", "--host", "0.0.0.0", "--port", "8080"]
+    ports:
+      - "127.0.0.1:18131:8080"
+    volumes:
+      - fastapi-hardened-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 64
+    mem_limit: 256m
+    networks: [lab]
+networks:
+  lab:
+    driver: bridge
+volumes:
+  fastapi-hardened-data:
