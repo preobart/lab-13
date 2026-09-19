@@ -1,5 +1,3 @@
-"""Одинаковые атаки до/после через TestClient двух приложений FastAPI."""
-
 import argparse
 from contextlib import contextmanager
 from html import unescape
